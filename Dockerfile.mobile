@@ -1,0 +1,18 @@
+# Docker file for mobile app
+FROM node:20-alpine
+
+# Work from /app
+WORKDIR /app
+
+# Copy only mobile app files
+COPY mobile/package*.json ./mobile/
+RUN cd mobile && npm ci
+
+# Copy the rest of the mobile app
+COPY mobile ./mobile
+
+# Expo ports
+EXPOSE 8081
+
+# Run Expo from the mobile directory
+CMD ["sh", "-c", "cd mobile && npx expo start --clear --lan --port 8081"]

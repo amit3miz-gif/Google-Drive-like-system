@@ -1,0 +1,18 @@
+FROM gcc:latest
+
+RUN apt-get update && apt-get install -y cmake
+
+COPY . /usr/src/myapp
+
+WORKDIR /usr/src/myapp
+
+RUN rm -f CMakeCache.txt && rm -rf CMakeFiles
+
+RUN mkdir build
+WORKDIR /usr/src/myapp/build
+
+# Run cmake
+RUN cmake .. && make
+
+# Run app
+CMD ["./Client"]

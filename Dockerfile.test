@@ -1,0 +1,21 @@
+FROM gcc:latest
+
+RUN apt-get update && apt-get install -y cmake
+
+COPY . /usr/src/mytest
+
+WORKDIR /usr/src/mytest
+
+RUN rm -f CMakeCache.txt && rm -rf CMakeFiles
+
+RUN mkdir build
+WORKDIR /usr/src/mytest/build
+
+# Set the environment variable for the files directory
+ENV FILES_DIR=/data/files
+
+# Run cmake
+RUN cmake .. && make
+
+# Run tests
+CMD ["./runTests"]

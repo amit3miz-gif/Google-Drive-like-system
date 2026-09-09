@@ -1,0 +1,18 @@
+
+FROM node:20-alpine
+
+WORKDIR /app
+
+# copy package.json and package-lock.json first
+# allows Docker to cache dependencies efficiently
+COPY package*.json ./
+
+# install production dependencies
+RUN npm ci --omit=dev
+
+COPY . .
+
+# Expose the port the application listens on
+EXPOSE 3000
+
+CMD ["npm", "start"]

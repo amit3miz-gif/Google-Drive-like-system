@@ -1,0 +1,81 @@
+services:
+  web-ui:
+    build:
+      context: ./web-ui
+      dockerfile: ../Dockerfile.webui
+      args:
+        - REACT_APP_API_URL=http://localhost:3000
+    ports:
+      - "8080:3000"
+    depends_on:
+      - web
+  web:
+    build:
+      context: ./web
+      dockerfile: ../Dockerfile.web
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - EX2_HOST=server
+      - EX2_PORT=5555
+      - WEB_UI_ORIGIN=http://localhost:8080
+      - MONGOURI=mongodb://db:27017/drive
+    depends_on:
+      - server
+      - db
+
+  cpp-client:
+    build:
+      context: .
+      dockerfile: Dockerfile.clientcpp
+    command: ["./Client", "server", "5555"]
+
+  py-client:
+    build:
+      context: .
+      dockerfile: Dockerfile.clientpy
+    command: ["python3", "ClientTCP.py", "server", "5555"]
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    environment:
+      - SERVER_THREADS=8
+      - FILES_DIR=/data/files
+    ports:
+      - "5555:5555"
+    volumes:
+      - ./drive_data:/data/files
+    command: ["./Drive", "5555"]
+
+  db:
+    image: mongo:8
+    restart: always
+    volumes:
+      - mongodata:/data/db
+    
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    command: ["./runTests"]
+  
+  mobile:
+    build:
+      context: .
+      dockerfile: Dockerfile.mobile
+    environment:
+      - EXPO_PUBLIC_API_URL=${EXPO_PUBLIC_API_URL}
+      - REACT_NATIVE_PACKAGER_HOSTNAME=${LAN_IP}
+      - EXPO_OFFLINE=1
+    ports:
+      - "8081:8081"
+    tty: true
+    stdin_open: true
+    depends_on:
+      - web
+
+volumes:
+  mongodata:

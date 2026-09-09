@@ -1,0 +1,27 @@
+FROM gcc:latest
+
+RUN apt-get update && apt-get install -y cmake
+
+COPY . /usr/src/myapp
+
+WORKDIR /usr/src/myapp
+
+RUN rm -f CMakeCache.txt && rm -rf CMakeFiles
+
+RUN mkdir build
+WORKDIR /usr/src/myapp/build
+
+# Set the environment variable for the files directory
+ENV FILES_DIR=/data/files
+
+# Set number of threads
+ENV SERVER_THREADS=8
+
+# Declare this path as a Docker volume for persistence
+VOLUME ["/data/files"]
+
+# Run cmake
+RUN cmake .. && make
+
+# Run app
+CMD ["./Drive", "5555"]

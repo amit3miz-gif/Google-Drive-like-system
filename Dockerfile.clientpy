@@ -1,0 +1,11 @@
+# Dockerfile for the Python client
+FROM python:3.11-slim
+
+# Set working directory inside the container
+WORKDIR /usr/src/myapp
+
+# Copy only what the client needs 
+COPY src/client/ClientTCP.py .
+
+# Default command: run the client.
+CMD ["python3", "ClientTCP.py"]
