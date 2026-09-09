@@ -1,0 +1,34 @@
+/* common/buttons.css
+   Shared "icon button" styling for topbar / toolbars / etc.
+*/
+
+.ui-icon-btn {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--btn-radius, 0.9rem);
+  border: var(--btn-border, 1px solid #d9deea);
+  background: var(--btn-bg, #ffffff);
+  cursor: pointer;
+  color: var(--text, #1f2937);
+  transition: transform 120ms ease, background 120ms ease, box-shadow 120ms ease;
+}
+
+.ui-icon-btn:hover {
+  background: var(--btn-hover-bg, #f7faff);
+  transform: translateY(-1px);
+  box-shadow: 0 0.85rem 1.4rem rgba(20, 24, 40, 0.10);
+}
+
+.ui-icon-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring, 0 0 0 0.2rem rgba(26, 115, 232, 0.2));
+}
+
+/* Make Material Symbols look consistent */
+.ui-icon-btn .material-symbols-outlined {
+  font-weight: 400;
+  line-height: 1;
+}

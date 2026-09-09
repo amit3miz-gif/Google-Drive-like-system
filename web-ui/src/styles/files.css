@@ -1,0 +1,436 @@
+/* files.css
+   Drive-like file area styles (toolbar + breadcrumbs + list/grid + items).
+*/
+
+/* =========================
+   Shared tooltip style
+   ========================= */
+
+/* special case: menu tooltip near right edge */
+.file-list-item__menu.has-tooltip .ui-tooltip {
+  left: auto;
+  right: 0;
+  transform: translateY(-2px);
+}
+
+.file-list-item__menu.has-tooltip:hover .ui-tooltip,
+.file-list-item__menu.has-tooltip:focus-visible .ui-tooltip {
+  transform: translateY(0);
+}
+
+/* =========================
+   Toolbar
+   ========================= */
+
+.file-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0;
+  border-bottom: none;
+  background: transparent;
+}
+
+.file-toolbar__right {
+  display: flex;
+  gap: var(--gap);
+  align-items: center;
+}
+
+/* Keep size for file toolbar icon button; skin comes from .ui-icon-btn */
+.icon-btn {
+  width: 2.2rem;
+  height: 2.1rem;
+  border-radius: 0.85rem;
+}
+
+/* =========================
+   View Toggle
+   ========================= */
+
+.view-toggle {
+  position: relative;
+  display: inline-flex;
+  background: var(--surface-2);
+  border: var(--border);
+  border-radius: 999px;
+  padding: 0.18rem;
+  gap: 0.18rem;
+}
+
+.view-toggle__pill {
+  position: absolute;
+  top: 0.18rem;
+  left: 0.18rem;
+  width: calc(50% - 0.18rem);
+  height: calc(100% - 0.36rem);
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: 0 0.6rem 1rem rgba(20, 24, 40, 0.10);
+  transition: transform 160ms ease;
+}
+
+.view-toggle--grid .view-toggle__pill {
+  transform: translateX(100%);
+}
+
+.view-toggle__btn {
+  position: relative;
+  z-index: 1;
+  width: 2.25rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-toggle__btn:hover {
+  transform: translateY(-0.0625rem);
+}
+
+/* CSS-only icons */
+.icon {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  position: relative;
+  opacity: 0.9;
+}
+
+.icon--list::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  width: 1rem;
+  height: 0.12rem;
+  background: var(--text);
+  border-radius: 0.2rem;
+  box-shadow: 0 0.32rem 0 var(--text), 0 0.64rem 0 var(--text);
+}
+
+.icon--grid::before {
+  content: "";
+  position: absolute;
+  left: 0.08rem;
+  top: 0.08rem;
+  width: 0.36rem;
+  height: 0.36rem;
+  background: var(--text);
+  border-radius: 0.18rem;
+  box-shadow: 0.5rem 0 0 var(--text), 0 0.5rem 0 var(--text),
+    0.5rem 0.5rem 0 var(--text);
+}
+
+/* =========================
+   Breadcrumbs
+   ========================= */
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  border-bottom: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+}
+
+.breadcrumbs__btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: #1a73e8;
+  font: inherit;
+}
+
+.breadcrumbs__btn:disabled {
+  cursor: default;
+  color: var(--text);
+  opacity: 0.95;
+}
+
+.breadcrumbs__sep {
+  opacity: 0.5;
+}
+
+/* =========================
+   File List Wrapper
+   ========================= */
+
+.file-list {
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.file-list--list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== ADD: List header + columns layout ===== */
+.file-list-header {
+  display: grid;
+  grid-template-columns: 1fr 12rem 12.5rem 2.15rem;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.file-list-header__name {
+  min-width: 0;
+}
+.file-list-header__owner,
+.file-list-header__modified {
+  justify-self: start;
+}
+.file-list-header__menu {
+  justify-self: end;
+}
+
+/* ===== ADD: Make list item a 4-col grid (only in list view) ===== */
+.file-list--list .file-list-item {
+  display: grid;
+  grid-template-columns: 1fr 12rem 12.5rem 2.15rem;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* the clickable area spans first 3 columns */
+.file-list--list .file-list-item__main {
+  grid-column: 1 / 4;
+  display: grid;
+  grid-template-columns: 1.15rem 1fr 12rem 12.5rem;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.file-list--list .file-menu-root {
+  grid-column: 4 / 5;
+  justify-self: end;
+}
+
+/* column cells */
+.file-list-item__owner,
+.file-list-item__modified {
+  color: var(--muted);
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-list-item__modified {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== Grid view ===== */
+.file-list--grid {
+  display: grid;
+  gap: var(--grid-gap);
+  padding-block: clamp(0.55rem, 1.2vw, 0.75rem);
+  padding-inline: var(--grid-padding-x);
+  background: var(--page-bg);
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min), 1fr));
+  grid-auto-rows: minmax(4.75rem, auto);
+  align-content: start;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+/* Empty state for file lists */
+.file-empty {
+  padding: 1.1rem var(--grid-padding-x, 1rem);
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.35;
+  transition: color 180ms ease;
+}
+
+/* =========================
+   File Item (base)
+   ========================= */
+
+.file-list-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.75rem;
+  background: var(--page-bg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0);
+  color: var(--text);
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.file-list-item:hover {
+  background: var(--surface-2);
+}
+
+/* Grid cards */
+.file-list--grid .file-list-item {
+  border: var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 0.55rem 0.65rem;
+  min-height: 4.75rem;
+  transition: box-shadow 180ms ease, transform 180ms ease,
+    background-color 180ms ease, color 180ms ease;
+}
+
+.file-list--grid .file-list-item:hover {
+  box-shadow: 0 0.9rem 1.4rem rgba(20, 24, 40, 0.08);
+  transform: translateY(-0.0625rem);
+}
+
+/* Prevent menu jitter in grid: don't animate/transform the tile while its menu is open */
+.file-list--grid .file-list-item.file-list-item--menu-open {
+  transform: none !important;
+  transition: box-shadow 0.18s ease, background-color 0.18s ease,
+    color 0.18s ease !important;
+}
+
+.file-list-item__main {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+
+/* Material Symbols */
+.file-list-item__icon.material-symbols-outlined {
+  flex: 0 0 auto;
+  font-size: 1.15rem;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.file-list-item__name {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+.file-list-item__menu {
+  flex: 0 0 auto;
+  width: 2.15rem;
+  height: 2.05rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem;
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.file-list-item__menu:hover {
+  background: var(--nav-hover-bg);
+  border-color: var(--nav-hover-border);
+}
+
+/* =========================
+   Popup menu (3-dots)
+   ========================= */
+
+.file-menu-root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.file-menu {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  right: 0;
+  min-width: 11.5rem;
+  background: var(--surface);
+  border: var(--border);
+  border-radius: 0.85rem;
+  box-shadow: 0 0.9rem 1.4rem rgba(20, 24, 40, 0.12);
+  padding: 0.35rem;
+  z-index: 200;
+}
+
+.file-menu--fixed {
+  position: fixed;
+}
+
+.file-menu::before {
+  content: "";
+  position: absolute;
+  top: -0.35rem;
+  right: 0.75rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--surface);
+  border-left: var(--border);
+  border-top: var(--border);
+  transform: rotate(45deg);
+}
+
+.file-menu__item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.65rem;
+  font-size: 0.92rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.file-menu__item:hover {
+  background: var(--surface-2);
+}
+
+.file-menu__item--danger {
+  color: #b91c1c;
+}
+
+.file-menu__item--danger:hover {
+  background: rgba(185, 28, 28, 0.10);
+}
+
+/* When FileList is in compact mode (search modal), don't force 4-col grid */
+.file-list--compact.file-list--list .file-list-item {
+  display: flex;
+}
+
+.file-list--compact.file-list--list .file-list-item__main {
+  display: flex;
+}

@@ -1,0 +1,44 @@
+/* common/tooltip.css
+   One tooltip style across the app.
+*/
+
+.has-tooltip {
+  position: relative;
+}
+
+.ui-tooltip {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 0.45rem);
+  transform: translateX(-50%) translateY(-2px);
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.6rem;
+  border: var(--tooltip-border);
+  background: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease, transform 120ms ease;
+  z-index: 50;
+}
+
+/* show only on hover OR keyboard focus-visible (not click focus) */
+.has-tooltip:hover .ui-tooltip,
+.has-tooltip:focus-visible .ui-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Align tooltip to the right edge (good near right side / overflow cases) */
+.ui-tooltip--right {
+  left: auto;
+  right: 0;
+  transform: translateY(-2px);
+}
+
+.has-tooltip:hover .ui-tooltip--right,
+.has-tooltip:focus-visible .ui-tooltip--right {
+  transform: translateY(0);
+}

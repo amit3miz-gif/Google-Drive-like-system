@@ -1,0 +1,233 @@
+/* theme.css
+   Centralized theme + shared design tokens for the app.
+*/
+
+/* ============ Global sizing/spacing tokens + safe defaults ============ */
+:root {
+  /* Layout spacing */
+  --layout-gap: clamp(0.5rem, 1.2vw, 1rem);
+  --layout-pad: clamp(0.75rem, 2vw, 1.25rem);
+
+  /* Layout sizing */
+  --topbar-h: clamp(3.25rem, 6vh, 3.75rem);
+  --sidebar-w: clamp(12rem, 18vw, 16rem);
+
+  /* Files area spacing */
+  --gap: clamp(0.4rem, 1vw, 0.7rem);
+  --pad: clamp(0.6rem, 1.4vw, 0.9rem);
+  --radius: 0.9rem;
+
+  --page-max-width: 100%;
+
+  --grid-gap: clamp(0.45rem, 1vw, 0.85rem);
+  --grid-padding-x: clamp(0.75rem, 2.2vw, 1.25rem);
+  --card-min: clamp(9rem, 13vw, 12rem);
+
+  /* Focus */
+  --focus-ring: 0 0 0 0.2rem rgba(26, 115, 232, 0.2);
+
+  /* Shared UI */
+  --btn-radius: 0.9rem;
+  --panel-radius: 0.9rem;
+
+  /* Theme switch sizing */
+  --theme-switch-w: 4.3rem;
+  --theme-switch-h: 2.1rem;
+
+  /* Safe defaults for pages OUTSIDE the Drive layout */
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: 1px solid #eef0f6;
+
+  --chrome-bg: #e8f0fe;
+  --page-bg: #ffffff;
+
+  --surface: #ffffff;
+  --surface-2: #f7faff;
+  --surface-hover: #f7faff;
+
+  --nav-hover-bg: #f1f4fb;
+  --nav-hover-border: #e2e6f2;
+  --nav-active-bg: #e8f0fe;
+  --nav-active-border: #cfe0ff;
+
+  --search-bg: rgba(255, 255, 255, 0.9);
+  --search-bg-focus: #ffffff;
+  --search-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03);
+
+  --overlay: rgba(15, 18, 28, 0.45);
+
+  --spinner-track: #ddd;
+  --spinner-head: #3498db;
+
+  --tooltip-border: var(--border);
+  --tooltip-bg: var(--surface);
+  --tooltip-text: var(--muted);
+
+  --btn-border: 1px solid #d9deea;
+  --btn-bg: #ffffff;
+  --btn-hover-bg: #f7faff;
+}
+
+/* ============ Theme tokens (SCOPED to Drive layout only) ============ */
+.app-layout[data-theme="light"] {
+  color-scheme: light;
+
+  --chrome-bg: #e8f0fe;
+  --page-bg: #ffffff;
+
+  --text: #1f2937;
+  --muted: #6b7280;
+
+  --surface: #ffffff;
+  --surface-2: #f7faff;
+  --surface-hover: #f7faff;
+
+  --border: 1px solid #eef0f6;
+
+  --nav-hover-bg: #f1f4fb;
+  --nav-hover-border: #e2e6f2;
+  --nav-active-bg: #e8f0fe;
+  --nav-active-border: #cfe0ff;
+
+  --search-bg: rgba(255, 255, 255, 0.9);
+  --search-bg-focus: #ffffff;
+  --search-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03);
+
+  --overlay: rgba(15, 18, 28, 0.45);
+
+  --spinner-track: #ddd;
+  --spinner-head: #3498db;
+
+  --tooltip-border: var(--border);
+  --tooltip-bg: var(--surface);
+  --tooltip-text: var(--muted);
+
+  --btn-border: 1px solid #d9deea;
+  --btn-bg: #ffffff;
+  --btn-hover-bg: #f7faff;
+
+  --menu-shadow: 0 0.75rem 1.75rem rgba(15, 23, 42, 0.14);
+}
+
+.app-layout[data-theme="dark"] {
+  color-scheme: dark;
+
+  --chrome-bg: #0b1220;
+  --page-bg: #0f172a;
+
+  --text: #e5e7eb;
+  --muted: #cbd5e1;
+
+  --surface: #111c33;
+  --surface-2: #0f1a30;
+  --surface-hover: #152244;
+
+  --border: 1px solid rgba(255, 255, 255, 0.08);
+
+  --nav-hover-bg: rgba(255, 255, 255, 0.06);
+  --nav-hover-border: rgba(255, 255, 255, 0.10);
+  --nav-active-bg: rgba(59, 130, 246, 0.18);
+  --nav-active-border: rgba(59, 130, 246, 0.28);
+
+  --search-bg: rgba(17, 28, 51, 0.85);
+  --search-bg-focus: rgba(17, 28, 51, 1);
+  --search-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
+
+  --overlay: rgba(0, 0, 0, 0.55);
+
+  --spinner-track: rgba(255, 255, 255, 0.14);
+  --spinner-head: rgba(59, 130, 246, 0.95);
+
+  --tooltip-border: var(--border);
+  --tooltip-bg: var(--surface);
+  --tooltip-text: var(--muted);
+
+  --btn-border: 1px solid rgba(255, 255, 255, 0.10);
+  --btn-bg: var(--surface);
+  --btn-hover-bg: var(--surface-hover);
+
+  --menu-shadow: 0 1rem 2.2rem rgba(0, 0, 0, 0.55);
+}
+
+/* ============ Theme switch (Drive topbar) ============ */
+.theme-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: var(--theme-switch-w);
+  height: var(--theme-switch-h);
+  border-radius: 999px;
+  border: var(--border);
+  background: var(--surface-2);
+  padding: 0.18rem;
+  gap: 0.18rem;
+}
+
+.theme-switch__pill {
+  position: absolute;
+  top: 0.18rem;
+  left: 0.18rem;
+  width: calc(50% - 0.18rem);
+  height: calc(100% - 0.36rem);
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: 0 0.6rem 1rem rgba(20, 24, 40, 0.10);
+  transition: transform 160ms ease;
+}
+
+.theme-switch--dark .theme-switch__pill {
+  transform: translateX(100%);
+}
+
+.theme-switch__btn {
+  position: relative;
+  z-index: 1;
+  width: calc(50% - 0.09rem);
+  height: 100%;
+  border: none;
+  background: transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+}
+
+.theme-switch__btn:hover {
+  transform: translateY(-0.0625rem);
+}
+
+.theme-switch__btn .material-symbols-outlined {
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* Smooth theme transition (scoped) */
+.app-layout,
+.app-layout .topbar,
+.app-layout .layout-body,
+.app-layout .content,
+.app-layout .sidebar,
+.app-layout .drive-panel,
+.app-layout .drive-header,
+.app-layout .file-list-item,
+.app-layout .ui-icon-btn,
+.app-layout .file-menu,
+.app-layout .drive-modal,
+.app-layout .search-box {
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-layout,
+  .app-layout * {
+    transition: none !important;
+  }
+}

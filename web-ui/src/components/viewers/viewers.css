@@ -1,0 +1,143 @@
+.viewer {
+  border-top: var(--border);
+  background: var(--page-bg);
+  padding: 0.75rem var(--pad, 0.85rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.viewer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.viewer__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.viewer__title .material-symbols-outlined {
+  font-size: 1.15rem;
+  line-height: 1;
+  font-weight: 400;
+  opacity: 0.9;
+  color: var(--text);
+}
+
+.viewer__name {
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 42vw;
+}
+
+.viewer__dirty {
+  font-size: 0.85rem;
+  color: #b45309;
+  margin-left: 0.25rem;
+  white-space: nowrap;
+}
+
+.viewer__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.viewer__danger-btn {
+  --btn-border: 1px solid rgba(185, 28, 28, 0.25);
+  --btn-bg: rgba(185, 28, 28, 0.08);
+  --btn-hover-bg: rgba(185, 28, 28, 0.12);
+}
+
+/* Error box */
+.viewer__error {
+  border: 1px solid rgba(185, 28, 28, 0.25);
+  background: rgba(185, 28, 28, 0.08);
+  color: var(--text);
+  border-radius: 0.85rem;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+/* Text area */
+.viewer__textarea {
+  width: 100%;
+  min-height: 220px;
+  resize: vertical;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.85rem;
+  border: var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  outline: none;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.viewer__textarea:focus {
+  box-shadow: var(--focus-ring);
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+/* Loading container */
+.viewer__loading {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Override Spinner's 100vh inside viewer only */
+.viewer .spinner-wrapper {
+  height: auto;
+  min-height: 120px;
+}
+
+/* Image viewer styles */
+.viewer__file-input {
+  display: none;
+}
+
+.viewer__empty {
+  padding: 0.75rem;
+  color: var(--muted);
+  transition: color 180ms ease;
+}
+
+.viewer__image-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.viewer__image {
+  max-width: 100%;
+  max-height: 62vh;
+  border-radius: 0.85rem;
+  border: var(--border);
+  background: var(--surface);
+}
+
+/* Image empty state actions */
+.viewer__empty-actions {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  color: var(--muted);
+  transition: color 180ms ease;
+}

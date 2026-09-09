@@ -1,0 +1,12 @@
+.ui-error {
+  margin: 0.75rem 0.875rem;
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.85rem;
+
+  border: 1px solid rgba(198, 40, 40, 0.25);
+  background: rgba(198, 40, 40, 0.08);
+  color: #c62828;
+
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
